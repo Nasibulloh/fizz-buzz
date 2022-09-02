@@ -20,4 +20,4 @@ COPY  /target/*.jar /fizz-buzz.jar
 
 USER nobody
 
-CMD ["fizz-buzz.jar"
+CMD ["fizz-buzz.jar"]
