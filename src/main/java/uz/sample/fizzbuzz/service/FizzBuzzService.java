@@ -47,7 +47,7 @@ public class FizzBuzzService {
     public NumberPairRequestResponse getNumberPair() {
         List<NumberPair> all = pairRepository.findAll();
         if (all.isEmpty()) {
-            throw new EntityNotFoundException("No pairs in DB.... First you should pairs.");
+            throw new EntityNotFoundException("No pairs in DB.... First you should set pairs.");
         }
         return numberPairMapper.toResponse(all.get(0));
     }
