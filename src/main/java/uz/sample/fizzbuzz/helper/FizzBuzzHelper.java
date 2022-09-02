@@ -6,6 +6,7 @@ import uz.sample.fizzbuzz.dao.pair.NumberPair;
 import uz.sample.fizzbuzz.dao.pair.NumberPairRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.function.Predicate;
 
 @Component
@@ -17,9 +18,15 @@ public class FizzBuzzHelper {
 
     @PostConstruct
     public void init() {
-        NumberPair numberPair = pairRepository.findAll().get(0);
-        this.fizz = numberPair.getFizz();
-        this.buzz = numberPair.getBuzz();
+        List<NumberPair> all = pairRepository.findAll();
+        if (all.isEmpty()) {
+            this.fizz = 3;
+            this.buzz = 5;
+        } else {
+            NumberPair numberPair = all.get(0);
+            this.fizz = numberPair.getFizz();
+            this.buzz = numberPair.getBuzz();
+        }
     }
 
     public Predicate<Integer> fizzPredicate() {
