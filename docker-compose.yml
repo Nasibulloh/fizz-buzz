@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  #------------------------- Postgres --------------------
+  postgres:
+    container_name: fizzbuzz-db-container
+    image: postgres:13.3
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: fizzbuzz
+      POSTGRES_PASSWORD: passwd
+      POSTGRES_DB: fizzbuzz
+    volumes:
+      - postgres:/var/fizzbuzz/postgres
+    networks:
+      - fizzbuzz-network
+
+  #------------------------- Application --------------------
+  app:
+    build:
+      context: .
+    container_name: fizzbuzz-app-container
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    volumes:
+      - app:/var/fizzbuzz/app
+    networks:
+      - fizzbuzz-network
+
+networks:
+  fizzbuzz-network:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+  app:
+

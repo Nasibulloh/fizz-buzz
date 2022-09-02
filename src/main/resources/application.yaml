@@ -1,0 +1,31 @@
+server:
+    port: ${SERVER_PORT:8080}
+spring:
+    datasource:
+        url: ${DB_URL:jdbc:postgresql://localhost:5432/fizz-buzz}
+        username: ${DB_USERNAME:fizzbuzz}
+        password: ${DB_PASSWORD:passwd}
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database: POSTGRESQL
+        show-sql: on
+        properties:
+            hibernate.id.new_generator_mappings: on
+            hibernate.cache.use_second_level_cache: off
+            hibernate.cache.use_query_cache: off
+            hibernate.generate_statistics: off
+            hibernate.jdbc.lob.non_contextual_creation: on
+            hibernate.jdbc.time_zone: UTC
+            hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+            hibernate.show_sql: on
+            hibernate.format_sql: on
+            hibernate.type: trace
+        hibernate:
+            ddl-auto: none # 'none' means hibernate does not create/update tables, just for read.
+    flyway:
+        baseline-on-migrate: true
+        enabled: true
+        out-of-order: true # If set 'true' , it means flyway works after hibernate. Preferred when you create create/update tables using hibernate (Not suggested).
+        password: ${spring.datasource.password}
+        user: ${spring.datasource.username}
+        url: ${spring.datasource.url}
